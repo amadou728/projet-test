@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 const Login = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
+  
 
   const handleLogin = (email, password) => {
     const foundUser = users.find(
@@ -20,10 +21,7 @@ const Login = () => {
     }
   };
 
-  const handleLogout = () => {
-    setLoggedIn(false);
-    setUser(null);
-  };
+  
 
   return (
     <div>
@@ -31,7 +29,6 @@ const Login = () => {
         
         <div>
           
-          <button onClick={handleLogout}>Se déconnecter</button>
           <Welcome />
         </div>
       ) : (

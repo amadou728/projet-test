@@ -19,7 +19,7 @@ const Home = () => {
         <div>
         <h1>First</h1>
         </div>
-        <div className='Input'>
+        <div className='InputLoGin'>
           <li>
             <Link to='/login' >login</Link>
           </li>

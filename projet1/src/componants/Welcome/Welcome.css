@@ -1,6 +1,55 @@
-.headerWelcom{
-
+.headerWelcome{
     display: flex;
     justify-content: space-between;
-
+    background: rgb(189, 228, 189);
+}
+.divHead{
+    display: flex;
+    justify-content: space-around;
+    margin: auto;
+}
+.titlewelcome{
+    position: relative;
+    left: -100px;
+}
+.divHead button Link{
+    margin: 5px;
+}
+.btnLogaout{
+    position: relative;
+    right: -120px;
+}
+.formWelcome{
+    margin-top: 55px;
+    background: gray;
+}
+.formWelcome div{
+    margin-left: 30px;
+}
+.InputTitle{
+    width: 90%;
+    height: 30px;
+}
+.InputDescrition{
+    width: 90%;
+    height: 200px;
+}
+.InputImage{
+    width: 30%;
+    height: 30px;
+}
+.divBtn{
+    position: relative;
+    top: 40px;
+}
+.BtnBlakup{
+    width: 45%;
+    height: 40px;
+    background-color: brown;
+}
+.BtnCreate{
+    width: 45%;
+    height: 40px;
+    margin-left: 10px;
+    background-color: aquamarine;
 }
