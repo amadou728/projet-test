@@ -4,6 +4,20 @@ import React, {useState} from 'react'
 import { Link } from "react-router-dom"
 import { users } from "../../../data"
 import Welcome from "../../Welcome/Welcome"
+import { createNewUser } from '../../../services/utils'
+
+
+
+// exple pour ajouter utlisateur
+// const response = createNewUser({
+//     firstname: 'bah',
+//     lastname: 'amadou',
+//     pseudo: 'ab12',
+//     year: 32,
+//     phone: '0202020202',
+//     email: 'abah@gmail.com',
+//     password: 'root',
+// })
 
 
 const SignUp = () =>{

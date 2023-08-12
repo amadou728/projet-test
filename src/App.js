@@ -5,9 +5,10 @@ import Login from './componants/Input/Login/Login';
 import SignUp from './componants/Input/SignUp/SignUp';
 import ErrorPage from './componants/Input/Errorpage/ErrorPage';
 import Welcome  from './componants/Welcome/Welcome'
-
+import {checkIfUserExistInDb} from './services/utils'
 
 function App() {
+console.log(checkIfUserExistInDb("addbah@gmail.com"));
   return (
     
    <Routes>
