@@ -4,7 +4,7 @@ import React, {useState} from 'react'
 import { Link } from "react-router-dom"
 import { users } from "../../../data"
 import Welcome from "../../Welcome/Welcome"
-import { createNewUser } from '../../../services/utils'
+import { createNewUser, checkIfUserExistInDb } from '../../../services/utils'
 
 
 
@@ -19,9 +19,20 @@ import { createNewUser } from '../../../services/utils'
 //     password: 'root',
 // })
 
+const user = {
+  firstname: '',
+  lastname: '',
+  pseudo: '',
+  year: 0,
+  phone: '',
+  email: '',
+  password: '',
+}
 
 const SignUp = () =>{
 
+ const [newUser, setNewUser] = useState(user);
+ const [error, setError] = useState({status: false, msg: ''});
 
 const [firstName, setfirstName] = useState('')
 const [lastName, setlastName] = useState('')
@@ -39,6 +50,21 @@ const [isError, setIsError] = useState(false);
 
 const handleSubmit = (e) => {
   e.preventDefault();
+  if(checkIfUserExistInDb(newUser.email)){
+    setError({status: true, msg: 'Ce email existe deja'})
+  }else{
+    // tu verifie si tous les champs sont remplis alors tu appel la fonction createNewUser
+    // if(){
+    //   createNewUser(newUser)
+      // n'oublie pas de mettre à jour error quand  le nouveau utilisateur est créer ici c'est déjà fait
+      // setError({status: false, msg: ''})
+    // }else{
+      // s'il ya un champ non remplis alors tu appel error et tu ajoute le message que tu veux
+    // }
+  }
+
+
+
   const existingUser = users.find((user) => user.email === email || user.pseudo === pseudo);
 
   if(existingUser){
@@ -72,11 +98,11 @@ return (
     <div className='formContain'>
     <div>
     <label htmlFor="lastName" > Prénom</label><br />
-    <input className='InputsignUp' onChange={(e) =>setfirstName(e.target.value)} value={firstName} type="text" id="firstName" autoComplete='off'  required/>
+    <input className='InputsignUp' onChange={(e) =>setNewUser({...newUser, firstname: e.target.value})} value={firstName} type="text" id="firstName" autoComplete='off'  required/>
     </div>
      <div>
     <label htmlFor="firstName">Nom</label><br />
-    <input className='InputsignUp' onChange={(e) =>setlastName(e.target.value)} value={lastName}  type="text" id="lastName" autoComplete='off' required/><br/>
+    <input className='InputsignUp' onChange={(e) =>setNewUser({...newUser, lastname: e.target.value})} type="text" id="lastName" autoComplete='off' required/><br/>
     </div>
     </div>
 

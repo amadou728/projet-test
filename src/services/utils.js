@@ -32,7 +32,7 @@ export const createNewUser = (user) => {
     if(checkIfUserExistInDb(user.email)){
         return {
             status: false,
-            message: "Ce email existe deja"
+            msg: "Ce email existe deja"
         }
     }
     const usersLength = users.length;
@@ -40,12 +40,12 @@ export const createNewUser = (user) => {
     if(usersLength === users.length){
         return {
             status: false,
-            message: "le compte n'est pas créer"
+            msg: "le compte n'est pas créer"
         }
     }
     return {
         status: true,
-        message: "compte créer avec succès"
+        msg: "compte créer avec succès"
     }
 }
 
