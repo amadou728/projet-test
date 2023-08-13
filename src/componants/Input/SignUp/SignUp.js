@@ -2,9 +2,7 @@
 import './SignUp.css'
 import React, {useState} from 'react'
 import { Link } from "react-router-dom"
-import { users } from "../../../data"
-import Welcome from "../../Welcome/Welcome"
-import { createNewUser, checkIfUserExistInDb } from '../../../services/utils'
+import { createNewUser, checkIfUserExistInDb} from '../../../services/utils'
 
 
 
@@ -34,16 +32,13 @@ const SignUp = () =>{
  const [newUser, setNewUser] = useState(user);
  const [error, setError] = useState({status: false, msg: ''});
 
-const [firstName, setfirstName] = useState('')
-const [lastName, setlastName] = useState('')
-const [pseudo, setpseudo] = useState('')
-const [phone, setphone] = useState('')
-const [year, setyear] = useState('')
-const [email, setemail] = useState('')
-const [password, setpassword] = useState('')
-const [confirmpassword, setconfirmpassword] = useState('')
-const [isRegistered, setIsRegistered] = useState(false);
-const [isError, setIsError] = useState(false);
+
+
+const handleChange = (e) =>{
+  setNewUser({...newUser, [e.target.id]: e.target.value})
+}
+
+const {firstname, lastname, pseudo, phone, year, email, password, confirmpassword} = newUser
 
 
 
@@ -54,111 +49,92 @@ const handleSubmit = (e) => {
     setError({status: true, msg: 'Ce email existe deja'})
   }else{
     // tu verifie si tous les champs sont remplis alors tu appel la fonction createNewUser
-    // if(){
-    //   createNewUser(newUser)
+   // if(){
+    //  createNewUser(newUser)
+      
       // n'oublie pas de mettre à jour error quand  le nouveau utilisateur est créer ici c'est déjà fait
-      // setError({status: false, msg: ''})
-    // }else{
+    // setError({status: false, msg: ''})
+  //  }else{
       // s'il ya un champ non remplis alors tu appel error et tu ajoute le message que tu veux
-    // }
+   //   error({status: true , msg: 'veuillez remplir tous les champs'})
+  //  }
   }
-
-
-
-  const existingUser = users.find((user) => user.email === email || user.pseudo === pseudo);
-
-  if(existingUser){
-     setIsError(true)
-  }else{
-    const newUser = {id: users.length + 1, firstName, lastName, pseudo, password, email, phone, password, confirmpassword }
-     
-    users.push(newUser)
-      setIsRegistered(true)
-  }
-
 }
 
+
  
-const btn =   firstName === '' || lastName === '' || pseudo === '' || email === '' || phone === '' || password === '' || password !== confirmpassword || year <= 0
+const btn =   firstname === '' || lastname === '' || pseudo === '' || email === '' || phone === '' || password === '' || password !== confirmpassword || year <= 0
 ? <button className='btnSignup' disabled >inscription</button> : <button>inscription</button>
 
 
 return ( 
   <div>
-  {isRegistered ? (
-
-    <Welcome />
-  
-  ) : (
-    <>
-    <div >
-      <h1> SignUp </h1>
-
-    <form onSubmit={handleSubmit}>  
-    <div className='formContain'>
-    <div>
-    <label htmlFor="lastName" > Prénom</label><br />
-    <input className='InputsignUp' onChange={(e) =>setNewUser({...newUser, firstname: e.target.value})} value={firstName} type="text" id="firstName" autoComplete='off'  required/>
-    </div>
-     <div>
-    <label htmlFor="firstName">Nom</label><br />
-    <input className='InputsignUp' onChange={(e) =>setNewUser({...newUser, lastname: e.target.value})} type="text" id="lastName" autoComplete='off' required/><br/>
-    </div>
-    </div>
-
-    <div className='formContain'>
-    <div>
-    <label htmlFor="pseudo" >Pseudo </label><br />
-    <input className='InputsignUp' onChange={(e) => setpseudo(e.target.value)} value={pseudo}  type="text"  id="pseudo" autoComplete='off' required/>
-    </div>
-    <div>
-    <label htmlFor="email" >Email </label><br />
-    <input className='InputsignUp' onChange={(e) =>setemail(e.target.value)} value={email} type="email"  id="email" autoComplete='off' required /><br />
-    </div>
-    </div>
-    <div className='formContain'>
-    <div>
-    <label htmlFor="phone">Téléphone </label> <br />
-    <input className='InputsignUp' onChange={(e) =>setphone(e.target.value)} value={phone} type="phone"  id="phone" autoComplete='off' required/>
-    </div>
-    <div>
-    <label htmlFor="year" >Âge </label><br />
-    <input className='InputsignUp' onChange={(e) =>setyear(e.target.value)} value={year} type="number"  id="year" autoComplete='off' required /><br/>
-    </div>
-    </div>
-    <div className='formContain'>
-    <div>
-    <label htmlFor="password" >password </label><br />
-    <input className='InputsignUp' onChange={(e) =>setpassword(e.target.value)} value={password} type="password"  id="password" autoComplete='off' required/>
-    </div>
-    <div>
-    <label htmlFor='confirmpassword'>Confirm password </label><br />
-    <input className='InputsignUp' onChange={(e) =>setconfirmpassword(e.target.value)} value={confirmpassword} type="password"  id="confirmpassword" autoComplete='off' required/><br/>
-    </div>
-    </div>
     
-    <div className='formContain'>
-       
-      {isError && <p>L'utilisateur existe déjà.</p>}
-  
-      {btn}
+        <>
+        <div >
+        <h1> SignUp </h1>
+        <form onSubmit={handleSubmit}>  
+        <div className='formContain'>
+        <div>
+        <label htmlFor="firstname" > Prénom</label><br />
+        <input className='InputsignUp' onChange={handleChange} value={firstname} type="text" id="firstname" autoComplete='off'  required/>
+        </div>
+         <div>
+        <label htmlFor="lastname">Nom</label><br />
+        <input className='InputsignUp' onChange={handleChange} value={lastname} type="text" id="lastname" autoComplete='off' required/><br/>
+        </div>
+        </div>
     
-    <Link  to='/login'><input className='btn' type="submit" value="deja inscrit"/></Link>
+        <div className='formContain'>
+        <div>
+        <label htmlFor="pseudo" >Pseudo </label><br />
+        <input className='InputsignUp' onChange={handleChange} value={pseudo}  type="text"  id="pseudo" autoComplete='off' required/>
+        </div>
+        <div>
+        <label htmlFor="email" >Email </label><br />
+        <input className='InputsignUp' onChange={handleChange} value={email} type="email"  id="email" autoComplete='off' required /><br />
+        </div>
+        </div>
+        <div className='formContain'>
+        <div>
+        <label htmlFor="phone">Téléphone </label> <br />
+        <input className='InputsignUp' onChange={handleChange} value={phone} type="phone"  id="phone" autoComplete='off' required/>
+        </div>
+        <div>
+        <label htmlFor="year" >Âge </label><br />
+        <input className='InputsignUp' onChange={handleChange} value={year} type="number"  id="year" autoComplete='off' required /><br/>
+        </div>
+        </div>
+        <div className='formContain'>
+        <div>
+        <label htmlFor="password" >password </label><br />
+        <input className='InputsignUp' onChange={handleChange} value={password} type="password"  id="password" autoComplete='off' required/>
+        </div>
+        <div>
+        <label htmlFor='confirmpassword'>Confirm password </label><br />
+        <input className='InputsignUp' onChange={handleChange} value={confirmpassword} type="password"  id="confirmpassword" autoComplete='off' required/><br/>
+        </div>
+        </div>
+        
+        <div className='formContain'>
+           
+          
+      
+          {btn}
+        
+        <Link  to='/login'><input className='btn' type="submit" value="deja inscrit"/></Link>
+        
+        </div>
     
+    </form>
     </div>
-
-</form>
-</div>
 </>
-)}
+
 </div>
 
 )
 }
-    
-    
+
+
 export default SignUp
-
-
-
 
