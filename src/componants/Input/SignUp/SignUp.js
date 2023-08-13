@@ -6,6 +6,7 @@ import { createNewUser, checkIfUserExistInDb, saveCurrentUser} from '../../../se
 
 
 
+
 // exple pour ajouter utlisateur
 // const response = createNewUser({
 //     firstname: 'bah',
@@ -53,15 +54,20 @@ const handleSubmit = (e) => {
   }else{
     // tu verifie si tous les champs sont remplis alors tu appel la fonction createNewUser
     if(newUser.firstname !== '' || newUser.lastname !== '' || newUser.pseudo !== '' || newUser.email !== '' || newUser.phone !== '' || newUser.password !== '' || newUser.password === newUser.confirmpassword || newUser.year > 0){
-      createNewUser(newUser)
-      saveCurrentUser(newUser)
-      navigate('/welcome')
-      
-      // n'oublie pas de mettre à jour error quand  le nouveau utilisateur est créer ici c'est déjà fait
-     setError({status: false, msg: ''})
+     
+     const createUserFunction = createNewUser(newUser) 
+
+     if (createUserFunction) {
+      saveCurrentUser(newUser.email);
+      navigate('/welcome');
+      setError({ status: false, msg: '' });
+    } else {
+      setError({ status: true, msg: 'La création de l\'utilisateur a échoué' });
+    }
+   
    }else{
       // s'il ya un champ non remplis alors tu appel error et tu ajoute le message que tu veux
-     error({status: true , msg: ''})
+      error({status: true , msg: ''})
     }
   }
 }
