@@ -1,8 +1,8 @@
 
 import './SignUp.css'
 import React, {useState} from 'react'
-import { Link } from "react-router-dom"
-import { createNewUser, checkIfUserExistInDb} from '../../../services/utils'
+import { Link, useNavigate } from "react-router-dom"
+import { createNewUser, checkIfUserExistInDb, saveCurrentUser} from '../../../services/utils'
 
 
 
@@ -27,12 +27,15 @@ const user = {
   password: '',
 }
 
+
 const SignUp = () =>{
+
+  const navigate =  useNavigate()
 
  const [newUser, setNewUser] = useState(user);
  const [error, setError] = useState({status: false, msg: ''});
 
-
+ 
 
 const handleChange = (e) =>{
   setNewUser({...newUser, [e.target.id]: e.target.value})
@@ -49,15 +52,17 @@ const handleSubmit = (e) => {
     setError({status: true, msg: 'Ce email existe deja'})
   }else{
     // tu verifie si tous les champs sont remplis alors tu appel la fonction createNewUser
-   // if(){
-    //  createNewUser(newUser)
+    if(newUser.firstname !== '' || newUser.lastname !== '' || newUser.pseudo !== '' || newUser.email !== '' || newUser.phone !== '' || newUser.password !== '' || newUser.password === newUser.confirmpassword || newUser.year > 0){
+      createNewUser(newUser)
+      saveCurrentUser(newUser)
+      navigate('/welcome')
       
       // n'oublie pas de mettre à jour error quand  le nouveau utilisateur est créer ici c'est déjà fait
-    // setError({status: false, msg: ''})
-  //  }else{
+     setError({status: false, msg: ''})
+   }else{
       // s'il ya un champ non remplis alors tu appel error et tu ajoute le message que tu veux
-   //   error({status: true , msg: 'veuillez remplir tous les champs'})
-  //  }
+     error({status: true , msg: ''})
+    }
   }
 }
 
