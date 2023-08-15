@@ -8,7 +8,7 @@ import Welcome  from './componants/Welcome/Welcome'
 import {checkIfUserExistInDb} from './services/utils'
 
 function App() {
-console.log(checkIfUserExistInDb("addbah@gmail.com"));
+console.log(checkIfUserExistInDb("abah@gmail.com"));
   return (
     
    <Routes>

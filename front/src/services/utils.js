@@ -1,4 +1,5 @@
 import {users} from '../data'
+import axiosInstance from './axios';
 
 
 export const getCurrentUser = () => {
@@ -10,13 +11,13 @@ export const saveCurrentUser = (email) => {
 }
 
 
-export const login = (email, password) => {
-    if(users.some(user => (user.email === email && user.password === password ))){
-        saveCurrentUser(email)
-        return true
-    }
 
-    return false
+export const login = (email, password) => {
+   
+    // if(users.some(user => (user.email === email && user.password === password ))){
+    //     saveCurrentUser(email)
+    //     return true
+    // }
 }
 
 export const logout  = () => {
